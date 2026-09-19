@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gitops-demo-api
+  namespace: default
+  labels:
+    app: gitops-demo-api
+spec:
+  replicas: 2
+
+  selector:
+    matchLabels:
+      app: gitops-demo-api
+
+  template:
+    metadata:
+      labels:
+        app: gitops-demo-api
+
+    spec:
+      containers:
+        - name: gitops-demo-api
+          image: 082009000104.dkr.ecr.ap-south-1.amazonaws.com/gitops-demo-api:1.0.0
+
+          ports:
+            - containerPort: 3000
+              protocol: TCP
+
+          env:
+            - name: NODE_ENV
+              value: "production"
+
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "250m"
+              memory: "256Mi"
+
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 3000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 3000
+            initialDelaySeconds: 15
+            periodSeconds: 20
