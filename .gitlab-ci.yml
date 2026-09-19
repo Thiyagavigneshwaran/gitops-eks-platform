@@ -1,0 +1,10 @@
+stages:
+  - validate
+
+validate:
+  stage: validate
+  image: node:22-alpine
+  script:
+    - cd app
+    - npm ci
+    - node --check server.js
