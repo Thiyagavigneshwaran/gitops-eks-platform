@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: gitops-demo-api
-          image: 082009000104.dkr.ecr.ap-south-1.amazonaws.com/gitops-demo-api:1.0.0
+          image: 082009000104.dkr.ecr.ap-south-1.amazonaws.com/gitops-demo-api:1a1e6a25
 
           ports:
             - containerPort: 3000
